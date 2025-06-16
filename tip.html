@@ -1,0 +1,807 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Ramen Cooking Tips</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Pridi:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+    <style>
+        @font-face {
+            font-family: 'Pretendard';
+            src: url('https://cdnjs.cloudflare.com/ajax/libs/pretendard/1.3.6/static/woff2/Pretendard-Regular.woff2') format('woff2');
+            font-weight: 400;
+            font-style: normal;
+        }
+        
+        @font-face {
+            font-family: 'Pretendard';
+            src: url('https://cdnjs.cloudflare.com/ajax/libs/pretendard/1.3.6/static/woff2/Pretendard-Bold.woff2') format('woff2');
+            font-weight: 700;
+            font-style: normal;
+        }
+        
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+        
+        :lang(ko) {
+            font-family: 'Pretendard', sans-serif;
+        }
+        
+        :lang(en) {
+            font-family: 'Pridi', serif;
+        }
+        
+        body {
+            background-color: #fff7d6;
+            text-align: center;
+            overflow-x: hidden;
+        }
+        
+        .header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding: 20px 50px;
+        }
+        
+        .logo {
+            color: #ff8c42;
+            font-size: 24px;
+            font-weight: bold;
+            text-decoration: none;
+            font-family: 'Pridi', serif;
+        }
+        
+        .nav {
+            position: absolute;
+            left: 50%;
+            transform: translateX(-50%);
+            display: flex;
+            gap: 40px;
+            z-index: 999;
+        }
+        
+        .nav-item {
+            color: #ff8c42;
+            text-decoration: none;
+            font-size: 18px;
+            position: relative;
+            font-family: 'Pridi', serif;
+        }
+        
+        .dropdown {
+            position: relative;
+            display: inline-block;
+        }
+        
+        .dropdown-content {
+            visibility: hidden;
+            opacity: 0;
+            position: absolute;
+            background-color: #fff7d6;
+            min-width: 160px;
+            box-shadow: 0px 8px 16px 0px rgba(0,0,0,0.2);
+            z-index: 1000;
+            border-radius: 5px;
+            top: 30px;
+            left: 50%;
+            transform: translateX(-50%);
+            transition: opacity 0.3s, visibility 0.3s;
+        }
+        
+        .dropdown-content a {
+            color: #703d00;
+            padding: 12px 16px;
+            text-decoration: none;
+            display: block;
+            border-bottom: 1px solid #ffd699;
+            font-family: 'Pridi', serif;
+        }
+        
+        .dropdown-content a:last-child {
+            border-bottom: none;
+        }
+        
+        .dropdown-content a:hover {
+            background-color: #ffd699;
+        }
+        
+        .dropdown:hover .dropdown-content {
+            visibility: visible;
+            opacity: 1;
+        }
+
+        /* 웨이브 애니메이션 */
+        .noodle-border {
+            height: 80px;
+            width: 100%;
+            position: relative;
+            padding: 0;
+            margin: 0;
+            overflow: hidden;
+            background: none;
+            z-index: 10;
+        }
+        
+        .wavy-line {
+            position: absolute;
+            left: 0;
+            width: 100%;
+            height: 20px;
+            background-color: transparent;
+        }
+        
+        .wavy-line1 {
+            top: 10px;
+            animation: wave1 12s infinite linear;
+        }
+        
+        .wavy-line2 {
+            top: 40px;
+            animation: wave2 10s infinite linear;
+            opacity: 0.8;
+        }
+        
+        .wavy-line3 {
+            top: 25px;
+            animation: wave3 15s infinite linear;
+            opacity: 0.6;
+            height: 15px;
+        }
+        
+        @keyframes wave1 {
+            0% { background-position: 0 0; }
+            100% { background-position: 1000px 0; }
+        }
+        
+        @keyframes wave2 {
+            0% { background-position: 1000px 0; }
+            100% { background-position: 0 0; }
+        }
+        
+        @keyframes wave3 {
+            0% { background-position: -500px 0; }
+            100% { background-position: 500px 0; }
+        }
+        
+        .wavy-line1 {
+            background: #ff8c42;
+            -webkit-mask: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 1200 60'%3E%3Cpath d='M0,20 C50,40 100,0 150,20 C200,40 250,0 300,20 C350,40 400,0 450,20 C500,40 550,0 600,20 C650,40 700,0 750,20 C800,40 850,0 900,20 C950,40 1000,0 1050,20 C1100,40 1150,0 1200,20' fill='none' stroke='%23000' stroke-width='18'/%3E%3C/svg%3E") repeat-x;
+            mask: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 1200 60'%3E%3Cpath d='M0,20 C50,40 100,0 150,20 C200,40 250,0 300,20 C350,40 400,0 450,20 C500,40 550,0 600,20 C650,40 700,0 750,20 C800,40 850,0 900,20 C950,40 1000,0 1050,20 C1100,40 1150,0 1200,20' fill='none' stroke='%23000' stroke-width='18'/%3E%3C/svg%3E") repeat-x;
+        }
+        
+        .wavy-line2 {
+            background: #ff8c42;
+            -webkit-mask: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 1200 60'%3E%3Cpath d='M0,20 C50,0 100,40 150,20 C200,0 250,40 300,20 C350,0 400,40 450,20 C500,0 550,40 600,20 C650,0 700,40 750,20 C800,0 850,40 900,20 C950,0 1000,40 1050,20 C1100,0 1150,40 1200,20' fill='none' stroke='%23000' stroke-width='18'/%3E%3C/svg%3E") repeat-x;
+            mask: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 1200 60'%3E%3Cpath d='M0,20 C50,0 100,40 150,20 C200,0 250,40 300,20 C350,0 400,40 450,20 C500,0 550,40 600,20 C650,0 700,40 750,20 C800,0 850,40 900,20 C950,0 1000,40 1050,20 C1100,0 1150,40 1200,20' fill='none' stroke='%23000' stroke-width='18'/%3E%3C/svg%3E") repeat-x;
+        }
+        
+        .wavy-line3 {
+            background: #ffae70;
+            -webkit-mask: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 1200 60'%3E%3Cpath d='M0,30 C30,10 60,30 90,30 C120,30 150,10 180,30 C210,50 240,10 270,20 C300,30 330,40 360,30 C390,20 420,20 450,30 C480,40 510,30 540,20 C570,10 600,20 630,30 C660,40 690,20 720,10 C750,0 780,20 810,30 C840,40 870,30 900,20 C930,10 960,30 990,40 C1020,50 1050,30 1080,20 C1110,10 1140,20 1170,30' fill='none' stroke='%23000' stroke-width='12'/%3E%3C/svg%3E") repeat-x;
+            mask: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 1200 60'%3E%3Cpath d='M0,30 C30,10 60,30 90,30 C120,30 150,10 180,30 C210,50 240,10 270,20 C300,30 330,40 360,30 C390,20 420,20 450,30 C480,40 510,30 540,20 C570,10 600,20 630,30 C660,40 690,20 720,10 C750,0 780,20 810,30 C840,40 870,30 900,20 C930,10 960,30 990,40 C1020,50 1050,30 1080,20 C1110,10 1140,20 1170,30' fill='none' stroke='%23000' stroke-width='12'/%3E%3C/svg%3E") repeat-x;
+        }
+
+        /* 메인 컨테이너 */
+        .main-container {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 40px 20px;
+        }
+
+        .page-title {
+            color: #5e1914;
+            margin-bottom: 20px;
+            font-family: 'Pridi', serif;
+            position: relative;
+            opacity: 0;
+            transform: translateY(-50px);
+            animation: titleFadeIn 1s ease 0.3s forwards;
+            text-align: center;
+            font-size: 3.5rem;
+            margin: 5px 0 30px 0;
+            font-weight: bold;
+        }
+
+        .page-subtitle {
+            color: #ff8c42;
+            font-size: 20px;
+            margin-bottom: 60px;
+            font-family: 'Pretendard', sans-serif;
+            opacity: 0;
+            transform: translateY(30px);
+            animation: subtitleFadeIn 1s ease 0.6s forwards;
+        }
+
+        @keyframes titleFadeIn {
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+
+        @keyframes subtitleFadeIn {
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+
+        /* 타임라인 스타일 */
+        .timeline {
+            position: relative;
+            max-width: 1000px;
+            margin: 0 auto;
+            padding: 40px 0;
+        }
+
+        .timeline::before {
+            content: '';
+            position: absolute;
+            left: 50%;
+            top: 0;
+            bottom: 0;
+            width: 4px;
+            background: linear-gradient(180deg, #ff8c42, #ffae70, #ff8c42);
+            transform: translateX(-50%);
+            height: 0;
+            animation: drawLine 2s ease 1s forwards;
+        }
+
+        @keyframes drawLine {
+            to {
+                height: 100%;
+            }
+        }
+
+        .timeline-item {
+            position: relative;
+            margin: 60px 0;
+            opacity: 0;
+            transform: translateY(80px);
+            transition: all 0.8s cubic-bezier(0.25, 0.46, 0.45, 0.94);
+        }
+
+        .timeline-item.animate {
+            opacity: 1;
+            transform: translateY(0);
+        }
+
+        .timeline-item.left.animate {
+            animation: slideInLeft 0.8s ease forwards;
+        }
+
+        .timeline-item.right.animate {
+            animation: slideInRight 0.8s ease forwards;
+        }
+
+        @keyframes slideInLeft {
+            0% {
+                opacity: 0;
+                transform: translateX(-100px) translateY(50px);
+            }
+            100% {
+                opacity: 1;
+                transform: translateX(0) translateY(0);
+            }
+        }
+
+        @keyframes slideInRight {
+            0% {
+                opacity: 0;
+                transform: translateX(100px) translateY(50px);
+            }
+            100% {
+                opacity: 1;
+                transform: translateX(0) translateY(0);
+            }
+        }
+
+        .timeline-item.left {
+            text-align: right;
+            padding-right: 60px;
+        }
+
+        .timeline-item.right {
+            text-align: left;
+            padding-left: 60px;
+        }
+
+        .timeline-content {
+            background: rgba(255, 255, 255, 0.9);
+            padding: 30px;
+            border-radius: 20px;
+            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.1);
+            position: relative;
+            transition: all 0.3s ease;
+            border: 2px solid transparent;
+        }
+
+        .timeline-content:hover {
+            transform: translateY(-10px);
+            box-shadow: 0 20px 40px rgba(0, 0, 0, 0.15);
+            border-color: #ff8c42;
+        }
+
+        .timeline-item:hover .timeline-number {
+            transform: translateX(-50%) translateY(-10px);
+            box-shadow: 0 15px 30px rgba(255, 140, 66, 0.6);
+            background: linear-gradient(135deg, #ff5722, #ff8c42);
+        }
+
+        .timeline-item.left .timeline-content::after {
+            content: '';
+            position: absolute;
+            right: -20px;
+            top: 30px;
+            width: 0;
+            height: 0;
+            border: 10px solid transparent;
+            border-left-color: rgba(255, 255, 255, 0.9);
+        }
+
+        .timeline-item.right .timeline-content::after {
+            content: '';
+            position: absolute;
+            left: -20px;
+            top: 30px;
+            width: 0;
+            height: 0;
+            border: 10px solid transparent;
+            border-right-color: rgba(255, 255, 255, 0.9);
+        }
+
+        .timeline-number {
+            position: absolute;
+            left: 50%;
+            top: 20px;
+            transform: translateX(-50%);
+            width: 60px;
+            height: 60px;
+            background: linear-gradient(135deg, #ff8c42, #ffae70);
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            color: white;
+            font-size: 24px;
+            font-weight: bold;
+            font-family: 'Pridi', serif;
+            box-shadow: 0 8px 20px rgba(255, 140, 66, 0.4);
+            z-index: 2;
+            transition: all 0.3s ease;
+        }
+
+        .tip-title {
+            color: #4a1800;
+            font-size: 24px;
+            margin-bottom: 15px;
+            font-family: 'Pridi', serif;
+            font-weight: bold;
+        }
+
+        .tip-description {
+            color: #5e1914;
+            line-height: 1.8;
+            font-size: 16px;
+            margin-bottom: 20px;
+            font-family: 'Pretendard', sans-serif;
+        }
+
+        .tip-highlight {
+            background: linear-gradient(135deg, #fff7d6, #ffeaa7);
+            padding: 15px;
+            border-radius: 10px;
+            border-left: 4px solid #ff8c42;
+            margin-top: 15px;
+            font-weight: 500;
+        }
+
+        .tip-icon {
+            width: 80px;
+            height: 80px;
+            background: linear-gradient(135deg, #ff8c42, #ffae70);
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            margin: 0 auto 20px;
+            font-size: 36px;
+            color: white;
+            box-shadow: 0 8px 20px rgba(255, 140, 66, 0.3);
+        }
+
+        /* 보너스 팁 섹션 */
+        .bonus-section {
+            margin-top: 80px;
+            background: linear-gradient(135deg, rgba(255, 140, 66, 0.1), rgba(255, 174, 112, 0.1));
+            padding: 50px;
+            border-radius: 30px;
+            border: 2px solid #ff8c42;
+            opacity: 0;
+            transform: translateY(50px);
+            transition: all 0.8s ease;
+        }
+
+        .bonus-section.animate {
+            opacity: 1;
+            transform: translateY(0);
+        }
+
+        .bonus-title {
+            color: #4a1800;
+            font-size: 36px;
+            margin-bottom: 30px;
+            font-family: 'Pridi', serif;
+            opacity: 0;
+            transform: translateY(30px);
+            transition: all 0.6s ease 0.2s;
+        }
+
+        .bonus-section.animate .bonus-title {
+            opacity: 1;
+            transform: translateY(0);
+        }
+
+        .bonus-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            gap: 30px;
+            margin-top: 40px;
+        }
+
+        .bonus-card {
+            background: rgba(255, 255, 255, 0.8);
+            padding: 25px;
+            border-radius: 15px;
+            transition: all 0.3s ease;
+            border: 2px solid transparent;
+            opacity: 0;
+            transform: translateY(40px) scale(0.9);
+        }
+
+        .bonus-section.animate .bonus-card {
+            opacity: 1;
+            transform: translateY(0) scale(1);
+        }
+
+        .bonus-section.animate .bonus-card:nth-child(1) { transition-delay: 0.1s; }
+        .bonus-section.animate .bonus-card:nth-child(2) { transition-delay: 0.2s; }
+        .bonus-section.animate .bonus-card:nth-child(3) { transition-delay: 0.3s; }
+        .bonus-section.animate .bonus-card:nth-child(4) { transition-delay: 0.4s; }
+        .bonus-section.animate .bonus-card:nth-child(5) { transition-delay: 0.5s; }
+        .bonus-section.animate .bonus-card:nth-child(6) { transition-delay: 0.6s; }
+
+        .bonus-card:hover {
+            transform: translateY(-5px);
+            border-color: #ff8c42;
+            box-shadow: 0 10px 25px rgba(0, 0, 0, 0.1);
+        }
+
+        .bonus-card h4 {
+            color: #ff8c42;
+            font-size: 20px;
+            margin-bottom: 15px;
+            font-family: 'Pridi', serif;
+        }
+
+        /* 반응형 디자인 */
+        @media (max-width: 768px) {
+            .timeline::before {
+                left: 30px;
+            }
+
+            .timeline-item.left,
+            .timeline-item.right {
+                text-align: left;
+                padding-left: 80px;
+                padding-right: 20px;
+            }
+
+            .timeline-number {
+                left: 30px;
+                transform: none;
+            }
+
+            .timeline-item.left .timeline-content::after,
+            .timeline-item.right .timeline-content::after {
+                left: -20px;
+                right: auto;
+                border: 10px solid transparent;
+                border-right-color: rgba(255, 255, 255, 0.9);
+                border-left-color: transparent;
+            }
+
+            .page-title {
+                font-size: 36px;
+            }
+
+            .bonus-section {
+                padding: 30px 20px;
+            }
+
+            .bonus-grid {
+                grid-template-columns: 1fr;
+                gap: 20px;
+            }
+        }
+    </style>
+</head>
+<body>
+    <!-- 헤더 -->
+    <div class="header">
+        <a href="realmain.html" class="logo" lang="en">Logo(home)</a>
+        <div class="nav">
+            <div class="dropdown">
+                <a href="#" class="nav-item" lang="en">Recipe</a>
+                <div class="dropdown-content">
+                    <a href="basic.html" lang="en">Basic</a>
+                    <a href="special.html" lang="en">Special</a>
+                </div>
+            </div>
+            <a href="tip.html" class="nav-item" lang="en">Tip</a>
+            <a href="brand.html" class="nav-item" lang="en">Brand</a>
+        </div>
+        <div style="width: 100px;"></div>
+    </div>
+
+    <!-- 웨이브 애니메이션 -->
+    <div class="noodle-border">
+        <div class="wavy-line wavy-line1"></div>
+        <div class="wavy-line wavy-line2"></div>
+        <div class="wavy-line wavy-line3"></div>
+    </div>
+
+    <!-- 메인 컨테이너 -->
+    <div class="main-container">
+        <h1 class="page-title" lang="en">Ramen Cooking Tips</h1>
+        <p class="page-subtitle">완벽한 라면을 위한 6단계 조리법</p>
+
+        <!-- 타임라인 -->
+        <div class="timeline">
+            <!-- Step 1 -->
+            <div class="timeline-item left">
+                <div class="timeline-number">1</div>
+                <div class="timeline-content">
+                    <div class="tip-icon">🥄</div>
+                    <h3 class="tip-title">물의 양이 핵심</h3>
+                    <p class="tip-description">
+                        라면의 맛을 좌우하는 가장 기본적인 요소입니다. 
+                        일반 라면은 550ml, 컵라면은 기준선까지 정확히 맞춰주세요.
+                    </p>
+                    <div class="tip-highlight">
+                        💡 <strong>Pro Tip:</strong> 면을 꼬들하게 먹고 싶다면 물을 50ml 정도 줄여보세요!
+                    </div>
+                </div>
+            </div>
+
+            <!-- Step 2 -->
+            <div class="timeline-item right">
+                <div class="timeline-number">2</div>
+                <div class="timeline-content">
+                    <div class="tip-icon">🔥</div>
+                    <h3 class="tip-title">강한 불로 끓이기</h3>
+                    <p class="tip-description">
+                        물이 팔팔 끓을 때까지 강한 불로 가열하세요. 
+                        충분히 끓는 물에서 면을 넣어야 쫄깃한 식감을 얻을 수 있습니다.
+                    </p>
+                    <div class="tip-highlight">
+                        💡 <strong>Pro Tip:</strong> 물이 끓기 시작하면 1분 정도 더 끓인 후 면을 넣으세요!
+                    </div>
+                </div>
+            </div>
+
+            <!-- Step 3 -->
+            <div class="timeline-item left">
+                <div class="timeline-number">3</div>
+                <div class="timeline-content">
+                    <div class="tip-icon">🍜</div>
+                    <h3 class="tip-title">면 먼저, 스프는 나중에</h3>
+                    <p class="tip-description">
+                        면을 먼저 넣고 30초 정도 끓인 후 스프를 넣으세요. 
+                        이렇게 하면 면이 고르게 익고 국물 농도를 조절하기 쉬워집니다.
+                    </p>
+                    <div class="tip-highlight">
+                        💡 <strong>Pro Tip:</strong> 분말 스프는 조금씩 넣어가며 간을 맞춰보세요!
+                    </div>
+                </div>
+            </div>
+
+            <!-- Step 4 -->
+            <div class="timeline-item right">
+                <div class="timeline-number">4</div>
+                <div class="timeline-content">
+                    <div class="tip-icon">⏰</div>
+                    <h3 class="tip-title">정확한 조리시간 지키기</h3>
+                    <p class="tip-description">
+                        대부분의 라면은 4분이 기본입니다. 우동이나 굵은 면은 5분 이상, 
+                        얇은 면은 3-4분이 적당해요. 타이머를 활용하세요!
+                    </p>
+                    <div class="tip-highlight">
+                        💡 <strong>Pro Tip:</strong> 마지막 30초에는 약한 불로 줄여서 국물이 넘치지 않게 하세요!
+                    </div>
+                </div>
+            </div>
+
+            <!-- Step 5 -->
+            <div class="timeline-item left">
+                <div class="timeline-number">5</div>
+                <div class="timeline-content">
+                    <div class="tip-icon">🥬</div>
+                    <h3 class="tip-title">토핑으로 업그레이드</h3>
+                    <p class="tip-description">
+                        파, 마늘, 계란, 김치 등 간단한 재료만 추가해도 맛이 확실히 달라집니다. 
+                        계란은 마지막 1분에, 채소는 2분 전에 넣어주세요.
+                    </p>
+                    <div class="tip-highlight">
+                        💡 <strong>Pro Tip:</strong> 파는 마지막에 넣어야 향이 살아나고, 마늘은 처음부터 넣으면 깊은 맛이 나요!
+                    </div>
+                </div>
+            </div>
+
+            <!-- Step 6 -->
+            <div class="timeline-item right">
+                <div class="timeline-number">6</div>
+                <div class="timeline-content">
+                    <div class="tip-icon">🍽️</div>
+                    <h3 class="tip-title">바로 먹기</h3>
+                    <p class="tip-description">
+                        라면은 완성 즉시 먹는 것이 가장 맛있습니다. 
+                        면이 불기 전에 뜨거울 때 드세요!
+                    </p>
+                    <div class="tip-highlight">
+                        💡 <strong>Pro Tip:</strong> 그릇을 미리 따뜻하게 데워두면 마지막까지 뜨겁게 즐길 수 있어요!
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- 보너스 팁 섹션 -->
+        <div class="bonus-section">
+            <h2 class="bonus-title">🌟 보너스 꿀팁들</h2>
+            <div class="bonus-grid">
+                <div class="bonus-card">
+                    <h4>🧄 마늘의 마법</h4>
+                    <p>다진 마늘 1큰술을 처음부터 넣고 끓이면 국물이 훨씬 깊고 진해져요. 특히 매운 라면과 궁합이 좋습니다!</p>
+                </div>
+                <div class="bonus-card">
+                    <h4>🧊 얼음의 비밀</h4>
+                    <p>비빔라면을 만들 때 삶은 면을 찬물에 헹군 후 얼음 2-3개를 넣고 비비면 더욱 쫄깃하고 시원해집니다!</p>
+                </div>
+                <div class="bonus-card">
+                    <h4>🥛 우유의 부드러움</h4>
+                    <p>매운 라면이 너무 맵다면 우유 2-3큰술을 넣어보세요. 매운맛이 부드러워지면서 크리미한 맛이 더해집니다!</p>
+                </div>
+                <div class="bonus-card">
+                    <h4>🍯 설탕의 균형</h4>
+                    <p>짠맛이 강한 라면에 설탕 1/2큰술을 넣으면 간이 훨씬 부드럽고 균형 잡힌 맛이 나요!</p>
+                </div>
+                <div class="bonus-card">
+                    <h4>🧈 버터의 고급감</h4>
+                    <p>라면이 거의 완성 되었을 때 버터 1큰술을 넣으면 고급 레스토랑 못지 않은 진한 맛을 느낄 수 있어요!</p>
+                </div>
+                <div class="bonus-card">
+                    <h4>🌶️ 고춧가루의 활용</h4>
+                    <p>시판 라면이 심심하다면 고춧가루를 살짝 넣어보세요. 색깔도 예쁘고 칼칼한 맛이 살아납니다!</p>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- 하단 웨이브 -->
+    <div class="noodle-border">
+        <div class="wavy-line wavy-line2"></div>
+        <div class="wavy-line wavy-line1"></div>
+    </div>
+
+    <script>
+        document.addEventListener("DOMContentLoaded", function() {
+            const dropdown = document.querySelector(".dropdown");
+            const dropdownContent = document.querySelector(".dropdown-content");
+            
+            dropdown.addEventListener("mouseenter", function() {
+                dropdownContent.style.visibility = "visible";
+                dropdownContent.style.opacity = "1";
+            });
+            
+            dropdown.addEventListener("mouseleave", function() {
+                setTimeout(function() {
+                    if (!dropdownContent.matches(':hover')) {
+                        dropdownContent.style.visibility = "hidden";
+                        dropdownContent.style.opacity = "0";
+                    }
+                }, 100);
+            });
+            
+            dropdownContent.addEventListener("mouseenter", function() {
+                this.style.visibility = "visible";
+                this.style.opacity = "1";
+            });
+            
+            dropdownContent.addEventListener("mouseleave", function() {
+                this.style.visibility = "hidden";
+                this.style.opacity = "0";
+            });
+            
+            // 드롭다운 링크 클릭 시 이동
+            const dropdownLinks = document.querySelectorAll(".dropdown-content a");
+            dropdownLinks.forEach(link => {
+                link.addEventListener("click", function(e) {
+                    const href = this.getAttribute("href");
+                    if(href) {
+                        window.location.href = href;
+                    }
+                });
+            });
+
+            // 스크롤 애니메이션 - 훨씬 더 부드럽고 순차적으로!
+            const observerOptions = {
+                threshold: 0.2,
+                rootMargin: '0px 0px -100px 0px'
+            };
+
+            const observer = new IntersectionObserver(function(entries) {
+                entries.forEach(entry => {
+                    if (entry.isIntersecting) {
+                        // 타임라인 아이템들 순차적으로 나타나기
+                        if (entry.target.classList.contains('timeline-item')) {
+                            setTimeout(() => {
+                                entry.target.classList.add('animate');
+                            }, 100);
+                        }
+                        // 보너스 섹션 애니메이션
+                        else if (entry.target.classList.contains('bonus-section')) {
+                            entry.target.classList.add('animate');
+                        }
+                    }
+                });
+            }, observerOptions);
+
+            // 모든 타임라인 아이템과 보너스 섹션 관찰
+            const timelineItems = document.querySelectorAll('.timeline-item');
+            const bonusSection = document.querySelector('.bonus-section');
+            
+            timelineItems.forEach((item, index) => {
+                // 각 아이템에 순차적 딜레이 추가
+                item.style.transitionDelay = `${index * 0.2}s`;
+                observer.observe(item);
+            });
+            
+            if (bonusSection) {
+                observer.observe(bonusSection);
+            }
+
+            // 타임라인 중앙선 애니메이션
+            const timeline = document.querySelector('.timeline');
+            if (timeline) {
+                const timelineObserver = new IntersectionObserver(function(entries) {
+                    entries.forEach(entry => {
+                        if (entry.isIntersecting) {
+                            timeline.style.setProperty('--line-height', '100%');
+                        }
+                    });
+                }, { threshold: 0.1 });
+                
+                timelineObserver.observe(timeline);
+            }
+
+            // 보너스 카드 호버 효과
+            const bonusCards = document.querySelectorAll('.bonus-card');
+            bonusCards.forEach(card => {
+                card.addEventListener('mouseenter', function() {
+                    this.style.transform = 'translateY(-10px) scale(1.02)';
+                });
+                
+                card.addEventListener('mouseleave', function() {
+                    this.style.transform = 'translateY(0) scale(1)';
+                });
+            });
+        });
+    </script>
+</body>
+</html>
