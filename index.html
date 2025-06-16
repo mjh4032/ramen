@@ -47,7 +47,6 @@
             justify-content: space-between;
             align-items: center;
             padding: 20px 50px;
-            border-bottom: 1px solid #ff8c42;
         }
         
         .logo {
@@ -64,6 +63,7 @@
             transform: translateX(-50%);
             display: flex;
             gap: 40px;
+            z-index: 999;
         }
         
         .nav-item {
@@ -86,7 +86,7 @@
             background-color: #fff7d6;
             min-width: 160px;
             box-shadow: 0px 8px 16px 0px rgba(0,0,0,0.2);
-            z-index: 1;
+            z-index: 1000;
             border-radius: 5px;
             top: 30px;
             left: 50%;
@@ -229,6 +229,90 @@
             top: 50%;
             transform: translateY(-50%);
         }
+        
+        /* 개선된 파도 애니메이션 스타일 */
+        .noodle-border {
+            height: 80px;
+            width: 100%;
+            position: relative;
+            padding: 0;
+            margin: 0;
+            overflow: hidden;
+            background: none;
+            z-index: 10;
+        }
+        
+        .wavy-line {
+            position: absolute;
+            left: 0;
+            width: 100%;
+            height: 20px;
+            background-color: transparent;
+        }
+        
+        .wavy-line1 {
+            top: 10px;
+            animation: wave1 12s infinite linear;
+        }
+        
+        .wavy-line2 {
+            top: 40px;
+            animation: wave2 10s infinite linear;
+            opacity: 0.8;
+        }
+        
+        .wavy-line3 {
+            top: 25px;
+            animation: wave3 15s infinite linear;
+            opacity: 0.6;
+            height: 15px;
+        }
+        
+        /* 웨이브 애니메이션 */
+        @keyframes wave1 {
+            0% { background-position: 0 0; }
+            100% { background-position: 1000px 0; }
+        }
+        
+        @keyframes wave2 {
+            0% { background-position: 1000px 0; }
+            100% { background-position: 0 0; }
+        }
+        
+        @keyframes wave3 {
+            0% { background-position: -500px 0; }
+            100% { background-position: 500px 0; }
+        }
+        
+        /* SVG 웨이브 패턴을 배경으로 사용 */
+        .wavy-line1 {
+            background: #ff8c42;
+            -webkit-mask: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 1200 60'%3E%3Cpath d='M0,20 C50,40 100,0 150,20 C200,40 250,0 300,20 C350,40 400,0 450,20 C500,40 550,0 600,20 C650,40 700,0 750,20 C800,40 850,0 900,20 C950,40 1000,0 1050,20 C1100,40 1150,0 1200,20' fill='none' stroke='%23000' stroke-width='18'/%3E%3C/svg%3E") repeat-x;
+            mask: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 1200 60'%3E%3Cpath d='M0,20 C50,40 100,0 150,20 C200,40 250,0 300,20 C350,40 400,0 450,20 C500,40 550,0 600,20 C650,40 700,0 750,20 C800,40 850,0 900,20 C950,40 1000,0 1050,20 C1100,40 1150,0 1200,20' fill='none' stroke='%23000' stroke-width='18'/%3E%3C/svg%3E") repeat-x;
+        }
+        
+        .wavy-line2 {
+            background: #ff8c42;
+            -webkit-mask: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 1200 60'%3E%3Cpath d='M0,20 C50,0 100,40 150,20 C200,0 250,40 300,20 C350,0 400,40 450,20 C500,0 550,40 600,20 C650,0 700,40 750,20 C800,0 850,40 900,20 C950,0 1000,40 1050,20 C1100,0 1150,40 1200,20' fill='none' stroke='%23000' stroke-width='18'/%3E%3C/svg%3E") repeat-x;
+            mask: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 1200 60'%3E%3Cpath d='M0,20 C50,0 100,40 150,20 C200,0 250,40 300,20 C350,0 400,40 450,20 C500,0 550,40 600,20 C650,0 700,40 750,20 C800,0 850,40 900,20 C950,0 1000,40 1050,20 C1100,0 1150,40 1200,20' fill='none' stroke='%23000' stroke-width='18'/%3E%3C/svg%3E") repeat-x;
+        }
+        
+        .wavy-line3 {
+            background: #ffae70;
+            -webkit-mask: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 1200 60'%3E%3Cpath d='M0,30 C30,10 60,30 90,30 C120,30 150,10 180,30 C210,50 240,10 270,20 C300,30 330,40 360,30 C390,20 420,20 450,30 C480,40 510,30 540,20 C570,10 600,20 630,30 C660,40 690,20 720,10 C750,0 780,20 810,30 C840,40 870,30 900,20 C930,10 960,30 990,40 C1020,50 1050,30 1080,20 C1110,10 1140,20 1170,30' fill='none' stroke='%23000' stroke-width='12'/%3E%3C/svg%3E") repeat-x;
+            mask: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 1200 60'%3E%3Cpath d='M0,30 C30,10 60,30 90,30 C120,30 150,10 180,30 C210,50 240,10 270,20 C300,30 330,40 360,30 C390,20 420,20 450,30 C480,40 510,30 540,20 C570,10 600,20 630,30 C660,40 690,20 720,10 C750,0 780,20 810,30 C840,40 870,30 900,20 C930,10 960,30 990,40 C1020,50 1050,30 1080,20 C1110,10 1140,20 1170,30' fill='none' stroke='%23000' stroke-width='12'/%3E%3C/svg%3E") repeat-x;
+        }
+        
+        /* 라면 바운스 애니메이션 (추가) */
+        .ramen-img {
+            animation: float 6s ease-in-out infinite;
+        }
+        
+        @keyframes float {
+            0% { transform: translateY(0px); }
+            50% { transform: translateY(-10px); }
+            100% { transform: translateY(0px); }
+        }
     </style>
 </head>
 <body>
@@ -243,10 +327,17 @@
                     <a href="special.html" lang="en">Special</a>
                 </div>
             </div>
-            <a href="#" class="nav-item" lang="en">Tip</a>
-            <a href="#" class="nav-item" lang="en">Brand</a>
+            <a href="tip.html" class="nav-item" lang="en">Tip</a>
+            <a href="brand.html" class="nav-item" lang="en">Brand</a>
         </div>
         <div style="width: 100px;"></div> <!-- 오른쪽 균형을 맞추기 위한 빈 공간 -->
+    </div>
+    
+    <!-- 개선된 파도 애니메이션 -->
+    <div class="noodle-border">
+        <div class="wavy-line wavy-line1"></div>
+        <div class="wavy-line wavy-line2"></div>
+        <div class="wavy-line wavy-line3"></div>
     </div>
     
     <!-- 메인 섹션 -->
@@ -255,7 +346,7 @@
             <h1 class="title" lang="en">K - Ramen House</h1>
         </div>
         
-        <img src="./img/main_ramen_1.png" alt="라면 이미지" class="ramen-img">
+        <img src="./web/img/main_ramen_1.png" alt="라면 이미지" class="ramen-img">
         
         <div class="description">
             <p lang="ko"><strong>"어서오세요! 라면이 있는 따뜻한 하루"</strong></p>
@@ -274,12 +365,18 @@
                 화끈한 맛과 중독적인 매력을 직접 느껴보세요.<br>
                 지금, 라면으로 떠나는 K-푸드 여행이 시작됩니다!
             </p>
-            <button class="btn" lang="en">Go</button>
+            <a href="b_4.html"><button class="btn" lang="en">Go</button></a>
         </div>
         <div class="right-content">
             <div class="circle-bg"></div>
-            <img src="./img/main_ramen_2.png" alt="라면 이미지" class="noodle-img">
+            <img src="./web/img/main_ramen_2.png" alt="라면 이미지" class="noodle-img">
         </div>
+    </div>
+    
+    <!-- 하단 파도 애니메이션 (추가) -->
+    <div class="noodle-border">
+        <div class="wavy-line wavy-line2"></div>
+        <div class="wavy-line wavy-line1"></div>
     </div>
 
     <script>
