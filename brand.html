@@ -1,0 +1,587 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Ramen brand</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Pridi:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+    <style>
+        @font-face {
+            font-family: 'Pretendard';
+            src: url('https://cdnjs.cloudflare.com/ajax/libs/pretendard/1.3.6/static/woff2/Pretendard-Regular.woff2') format('woff2');
+            font-weight: 400;
+            font-style: normal;
+        }
+        
+        @font-face {
+            font-family: 'Pretendard';
+            src: url('https://cdnjs.cloudflare.com/ajax/libs/pretendard/1.3.6/static/woff2/Pretendard-Bold.woff2') format('woff2');
+            font-weight: 700;
+            font-style: normal;
+        }
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+        :lang(ko) {
+            font-family: 'Pretendard', sans-serif;
+        }
+        
+        :lang(en) {
+            font-family: 'Pridi', serif;
+        }
+        
+        body {
+            background-color: #fff7d6;
+            text-align: center;
+        }
+        
+        .header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding: 20px 50px;
+        
+        }
+        
+        .logo {
+            color: #ff8c42;
+            font-size: 24px;
+            font-weight: bold;
+            text-decoration: none;
+            font-family: 'Pridi', serif;
+        }
+        
+        .nav {
+            position: absolute;
+            left: 50%;
+            transform: translateX(-50%);
+            display: flex;
+            gap: 40px;
+            z-index: 999;
+        }
+        
+        .nav-item {
+            color: #ff8c42;
+            text-decoration: none;
+            font-size: 18px;
+            position: relative;
+            font-family: 'Pridi', serif;
+        }
+        .dropdown {
+            position: relative;
+            display: inline-block;
+        }
+        .dropdown-content {
+            visibility: hidden;
+            opacity: 0;
+            position: absolute;
+            background-color: #fff7d6;
+            min-width: 160px;
+            box-shadow: 0px 8px 16px 0px rgba(0,0,0,0.2);
+            z-index: 1;
+            border-radius: 5px;
+            top: 30px;
+            left: 50%;
+            transform: translateX(-50%);
+            transition: opacity 0.3s, visibility 0.3s;
+        }
+        
+        .dropdown-content a {
+            color: #703d00;
+            padding: 12px 16px;
+            text-decoration: none;
+            display: block;
+            border-bottom: 1px solid #ffd699;
+            font-family: 'Pridi', serif;
+        }
+        
+        .dropdown-content a:last-child {
+            border-bottom: none;
+        }
+        
+        .dropdown-content a:hover {
+            background-color: #ffd699;
+        }
+        
+        .dropdown:hover .dropdown-content {
+            visibility: visible;
+            opacity: 1;
+        }
+        .main-title {
+            color: #5e1914;
+            text-align: center;
+            font-size: 3.5rem;
+            margin: 5px 0 30px 0;
+            font-weight: bold;
+            font-family: 'Pridi', serif;
+        }
+        .container {
+            width: 100%;
+            padding: 20px px;
+        }
+        
+        .brand-card {
+            width: 60%;
+            height: 350px;
+            background: linear-gradient(135deg, #ff5722, #ff8a65);
+            margin-bottom: 50px;
+            position: relative;
+            display: flex;
+            align-items: center;
+            color: black;
+            overflow: hidden;
+        }
+        
+        .brand-card::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            background-size: 60% auto;
+            background-position: center;
+            background-repeat: no-repeat;
+            opacity: 0.7;
+            z-index: 1;
+            background-color: transparent;
+            
+        }
+        
+        /* 1,3번 카드 - 왼쪽에서 시작, 검정선과 같은 기울기로 자르기 */
+        .brand-card.left-start::before {
+            clip-path: polygon(0% 0%, 60% 0%, 55% 100%, 0% 100%);
+            background-position: left center;
+        }
+        
+        /* 2,4번 카드 - 오른쪽에서 시작, 검정선과 같은 기울기로 자르기 */
+        .brand-card.right-start::before {
+            clip-path: polygon(40% 0%, 100% 0%, 100% 100%, 45% 100%);
+            background-position: right center;
+        }
+        
+        .brand-card.nongshim::before {
+            background-image: url('img/sin.png');
+        }
+        
+        .brand-card.samyang::before {
+            background-image: url('img/sam.png');
+        }
+        
+        .brand-card.ottogi::before {
+            background-image: url('img/oh2.png');
+        }
+        
+        .brand-card.paldo::before {
+            background-image: url('img/pal.png');
+        }
+        
+        /* 1,3번 카드 - 왼쪽에서 시작, 오른쪽만 둥글게 */
+        .brand-card.left-start {
+            border-radius: 0 175px 175px 0;
+            margin-left: 0;
+            margin-right: auto;
+            justify-content: flex-start;
+        }
+        
+        /* 2,4번 카드 - 오른쪽에서 시작, 왼쪽만 둥글게 */
+        .brand-card.right-start {
+            border-radius: 175px 0 0 175px;
+            margin-left: auto;
+            margin-right: 0;
+            justify-content: flex-end;
+            flex-direction: row-reverse;
+        }
+        
+        .brand-content {
+            display: flex;
+            align-items: center;
+            width: 100%;
+            padding: 40px;
+            position: relative;
+            z-index: 2;
+        }
+        
+        .right-start .brand-content {
+            flex-direction: row-reverse;
+        }
+        
+        .brand-info {
+    flex: 1;
+    text-align: left;
+    position: relative;
+   
+}
+
+.brand-title {
+    font-size: 2.2rem;
+    font-weight: bold;
+    margin-bottom: 25px;
+    font-family: 'Pretendard', sans-serif;
+    /* 글래스모피즘 텍스트 */
+    color: #ffffff;
+    text-shadow: 
+        2px 2px 4px rgba(0, 0, 0, 0.8),
+        0 0 10px rgba(255, 140, 66, 0.5); /* 오렌지 글로우 */
+    background: rgba(255, 140, 66, 0.2); /* 반투명 오렌지 */
+    padding: 12px 20px;
+    border-radius: 15px;
+    backdrop-filter: blur(10px);
+    border: 1px solid rgba(255, 255, 255, 0.3);
+    display: inline-block;
+}
+
+.brand-details {
+    list-style: none;
+    margin-bottom: 30px;
+    font-size: 17px;
+    line-height: 1.8;
+    /* 글래스모피즘 배경 */
+    background: rgba(255, 140, 66, 0.2); /* 반투명 오렌지 */
+    backdrop-filter: blur(10px);
+    padding: 20px;
+    border-radius: 15px;
+    border: 1px solid rgba(255, 255, 255, 0.1);
+    box-shadow: inset 0 1px 0 rgba(255, 255, 255, 0.2);
+    max-width: 400px; /* 이 한 줄만 추가! */
+}
+
+.brand-details li {
+    margin-bottom: 12px;
+    position: relative;
+    padding-left: 25px;
+    color: #ffffff; /* 흰색 텍스트 */
+    font-weight: 500;
+    text-shadow: 1px 1px 2px rgba(0, 0, 0, 0.8); /* 텍스트 그림자 */
+}
+
+.brand-details li:before {
+    content: "🍜";
+    position: absolute;
+    left: 0;
+    color: #ff8c42;
+    font-size: 16px;
+    filter: drop-shadow(0 0 5px rgba(255, 140, 66, 0.8)); /* 이모지 글로우 */
+}
+
+/* 오른쪽 정렬 카드도 동일하게 */
+.right-start .brand-info {
+    text-align: right;
+}
+
+.right-start .brand-details li {
+    padding-right: 25px;
+    padding-left: 0;
+}
+
+.right-start .brand-details li:before {
+    right: 0;
+    left: auto;
+}
+
+/* 호버 효과도 글래스모피즘으로 */
+.brand-card:hover .brand-info {
+    transform: translateY(-2px);
+    
+}
+
+/* 오른쪽 카드의 brand-details를 오른쪽으로 정렬 */
+.right-start .brand-details {
+    margin-left: auto; /* 왼쪽 마진을 auto로 해서 오른쪽으로 밀기 */
+    margin-right: 0;   /* 오른쪽 마진은 0 */
+}
+
+/* 오른쪽 카드의 brand-title도 오른쪽으로 정렬 */
+.right-start .brand-title {
+    float: right; /* 오른쪽으로 정렬 */
+    clear: both;  /* 다른 요소들과 겹치지 않도록 */
+}
+
+/* 또는 더 확실한 방법으로 전체 brand-info를 flex로 조정 */
+.right-start .brand-info {
+    display: flex;
+    flex-direction: column;
+    align-items: flex-end; /* 모든 자식 요소를 오른쪽 정렬 */
+}
+
+/* 왼쪽 카드는 왼쪽 정렬 유지 */
+.left-start .brand-info {
+    display: flex;
+    flex-direction: column;
+    align-items: flex-start; /* 모든 자식 요소를 왼쪽 정렬 */
+}
+
+/* 모든 타이틀의 수직 정렬을 맞춤 */
+.brand-title {
+    font-size: 2.2rem;
+    font-weight: bold;
+    margin-bottom: 25px; /* 모든 타이틀의 하단 마진 통일 */
+    font-family: 'Pretendard', sans-serif;
+    color: #ffffff;
+    text-shadow: 
+        2px 2px 4px rgba(0, 0, 0, 0.8),
+        0 0 10px rgba(255, 140, 66, 0.5);
+    background: rgba(255, 140, 66, 0.2);
+    padding: 12px 20px;
+    border-radius: 15px;
+    backdrop-filter: blur(10px);
+    border: 1px solid rgba(255, 255, 255, 0.3);
+    display: inline-block;
+    vertical-align: top; /* 수직 정렬 통일 */
+}
+        
+        
+        
+        .brand-buttons {
+            position: absolute;
+            z-index: 3;
+            width: 280px;
+            height: 200px;
+        }
+        
+        .left-start .brand-buttons {
+            right: 150px;
+            top: 50%;
+            transform: translateY(-50%);
+        }
+        
+        .right-start .brand-buttons {
+            left: 150px;
+            top: 50%;
+            transform: translateY(-50%);
+        }
+        
+        .brand-btn {
+            background: rgba(255, 255, 255, 0.95);
+            color: #ff5722;
+            padding: 35px 60px;
+            border: none;
+            border-radius: 80px;
+            font-size: 22px;
+            font-weight: bold;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            text-decoration: none;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            text-align: center;
+            font-family: 'Pridi', serif;
+            box-shadow: 0 4px 12px rgba(0,0,0,0.2);
+            position: absolute;
+            min-width: 240px;
+            min-height: 60px;
+        }
+        
+        .brand-btn:hover {
+            background: white;
+            transform: translateY(-3px);
+            box-shadow: 0 6px 16px rgba(0,0,0,0.25);
+        }
+        
+        /* 언밸런스 버튼 배치 */
+        .brand-btn.homepage {
+            top: -20px;
+            left: -80px;
+        }
+        
+        .brand-btn.sns {
+            top: 130px;
+            left: auto;
+            right: -40px;
+        }
+        
+        /* 오른쪽 시작 카드의 버튼들은 반대로 배치 */
+        .right-start .brand-btn.homepage {
+            top: -20px;
+            right: -80px;
+            left: auto;
+        }
+        
+        .right-start .brand-btn.sns {
+            top: 130px;
+            left: -40px;
+            right: auto;
+        }
+        
+        .noodle-border {
+            height: 80px;
+            width: 100%;
+            position: relative;
+            padding: 0;
+            margin: 0;
+            overflow: hidden;
+            background: none;
+            z-index: 10;
+        }
+        
+        .wavy-line {
+            position: absolute;
+            left: 0;
+            width: 100%;
+            height: 20px;
+            background-color: transparent;
+        }
+        
+        .wavy-line1 {
+            top: 10px;
+            animation: wave1 12s infinite linear;
+        }
+        
+        .wavy-line2 {
+            top: 40px;
+            animation: wave2 10s infinite linear;
+            opacity: 0.8;
+        }
+        
+        .wavy-line3 {
+            top: 25px;
+            animation: wave3 15s infinite linear;
+            opacity: 0.6;
+            height: 15px;
+        }
+        
+        @keyframes wave1 {
+            0% { background-position: 0 0; }
+            100% { background-position: 1000px 0; }
+        }
+        
+        @keyframes wave2 {
+            0% { background-position: 1000px 0; }
+            100% { background-position: 0 0; }
+        }
+        
+        @keyframes wave3 {
+            0% { background-position: -500px 0; }
+            100% { background-position: 500px 0; }
+        }
+        
+        .wavy-line1 {
+            background: #ff8c42;
+            -webkit-mask: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 1200 60'%3E%3Cpath d='M0,20 C50,40 100,0 150,20 C200,40 250,0 300,20 C350,40 400,0 450,20 C500,40 550,0 600,20 C650,40 700,0 750,20 C800,40 850,0 900,20 C950,40 1000,0 1050,20 C1100,40 1150,0 1200,20' fill='none' stroke='%23000' stroke-width='18'/%3E%3C/svg%3E") repeat-x;
+            mask: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 1200 60'%3E%3Cpath d='M0,20 C50,40 100,0 150,20 C200,40 250,0 300,20 C350,40 400,0 450,20 C500,40 550,0 600,20 C650,40 700,0 750,20 C800,40 850,0 900,20 C950,40 1000,0 1050,20 C1100,40 1150,0 1200,20' fill='none' stroke='%23000' stroke-width='18'/%3E%3C/svg%3E") repeat-x;
+        }
+        
+        .wavy-line2 {
+            background: #ff8c42;
+            -webkit-mask: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 1200 60'%3E%3Cpath d='M0,20 C50,0 100,40 150,20 C200,0 250,40 300,20 C350,0 400,40 450,20 C500,0 550,40 600,20 C650,0 700,40 750,20 C800,0 850,40 900,20 C950,0 1000,40 1050,20 C1100,0 1150,40 1200,20' fill='none' stroke='%23000' stroke-width='18'/%3E%3C/svg%3E") repeat-x;
+            mask: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 1200 60'%3E%3Cpath d='M0,20 C50,0 100,40 150,20 C200,0 250,40 300,20 C350,0 400,40 450,20 C500,0 550,40 600,20 C650,0 700,40 750,20 C800,0 850,40 900,20 C950,0 1000,40 1050,20 C1100,0 1150,40 1200,20' fill='none' stroke='%23000' stroke-width='18'/%3E%3C/svg%3E") repeat-x;
+        }
+        
+        .wavy-line3 {
+            background: #ffae70;
+            -webkit-mask: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 1200 60'%3E%3Cpath d='M0,30 C30,10 60,30 90,30 C120,30 150,10 180,30 C210,50 240,10 270,20 C300,30 330,40 360,30 C390,20 420,20 450,30 C480,40 510,30 540,20 C570,10 600,20 630,30 C660,40 690,20 720,10 C750,0 780,20 810,30 C840,40 870,30 900,20 C930,10 960,30 990,40 C1020,50 1050,30 1080,20 C1110,10 1140,20 1170,30' fill='none' stroke='%23000' stroke-width='12'/%3E%3C/svg%3E") repeat-x;
+            mask: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 1200 60'%3E%3Cpath d='M0,30 C30,10 60,30 90,30 C120,30 150,10 180,30 C210,50 240,10 270,20 C300,30 330,40 360,30 C390,20 420,20 450,30 C480,40 510,30 540,20 C570,10 600,20 630,30 C660,40 690,20 720,10 C750,0 780,20 810,30 C840,40 870,30 900,20 C930,10 960,30 990,40 C1020,50 1050,30 1080,20 C1110,10 1140,20 1170,30' fill='none' stroke='%23000' stroke-width='12'/%3E%3C/svg%3E") repeat-x;
+        }
+
+    </style>
+</head>
+<body>
+    <div class="header">
+        <a href="index.html" class="logo" lang="en">Home</a>
+        <div class="nav">
+            <div class="dropdown">
+                <a href="#" class="nav-item" lang="en">Recipe</a>
+                <div class="dropdown-content">
+                    <a href="basic.html" lang="en">Basic</a>
+                    <a href="special.html" lang="en">Special</a>
+                </div>
+            </div>
+            <a href="tip.html" class="nav-item" lang="en">Tip</a>
+            <a href="brand.html" class="nav-item" lang="en">Brand</a>
+        </div>
+        <div style="width: 100px;"></div>
+    </div>
+    
+    <div class="noodle-border">
+        <div class="wavy-line wavy-line1"></div>
+        <div class="wavy-line wavy-line2"></div>
+        <div class="wavy-line wavy-line3"></div>
+    </div>
+
+    <div class="container">
+        <h1 class="main-title">Brand</h1>
+
+        <!-- 1번 농심 - 왼쪽 시작, 오른쪽을 비스듬하게 -->
+        <div class="brand-card left-start nongshim">
+            <div class="brand-content">
+                <div class="brand-info">
+                    <h2 class="brand-title">1. 농심 (Nongshim)</h2>
+                    <ul class="brand-details">
+                        <li>대표 제품: 신라면, 짜파게티, 너구리</li>
+                        <li>특징: 세계에서 가장 유명한 한국 라면 브랜드, 글로벌 수출 1위</li>
+                        <li>포인트: "신라면"은 한국 라면의 상징 같은 존재</li>
+                    </ul>
+                </div>
+            </div>
+            <div class="brand-buttons">
+                <a href="https://www.nongshim.com/main/index" class="brand-btn homepage">Go Homepage</a>
+                <a href="https://www.instagram.com/nongshim/" class="brand-btn sns">Go SNS</a>
+            </div>
+        </div>
+
+        <!-- 2번 삼양 - 오른쪽 시작, 왼쪽을 비스듬하게 -->
+        <div class="brand-card right-start samyang">
+            <div class="brand-content">
+                <div class="brand-info">
+                    <h2 class="brand-title">2. 삼양식품 (Samyang Foods)</h2>
+                    <ul class="brand-details">
+                        <li>대표 제품: 불닭볶음면, 삼양라면</li>
+                        <li>특징: 매운맛 라면의 아이콘, K-라면 열풍의 주역</li>
+                        <li>포인트: 불닭 시리즈는 유튜버들이 '매운 도전' 영상에 자주 등장</li>
+                    </ul>
+                </div>
+            </div>
+            <div class="brand-buttons">
+                <a href="https://www.samyangfoods.com/kor/index.do" class="brand-btn homepage">Go Homepage</a>
+                <a href="https://www.instagram.com/samyangfoods/" class="brand-btn sns">Go SNS</a>
+            </div>
+        </div>
+
+        <!-- 3번 오뚜기 - 왼쪽 시작, 오른쪽을 비스듬하게 -->
+        <div class="brand-card left-start ottogi">
+            <div class="brand-content">
+                <div class="brand-info">
+                    <h2 class="brand-title">3. 오뚜기 (Ottogi)</h2>
+                    <ul class="brand-details">
+                        <li>대표 제품: 진라면, 열라면, 참깨라면</li>
+                        <li>특징: 부드러운 국물과 다양한 맛, 가정식 느낌의 라면이 강점</li>
+                        <li>포인트: "진라면"은 순한 맛으로 어린이부터 노인까지 인기</li>
+                    </ul>
+                </div>
+            </div>
+            <div class="brand-buttons">
+                <a href="https://www.otoki.com/main/" class="brand-btn homepage">Go Homepage</a>
+                <a href="https://www.instagram.com/otoki_daily/" class="brand-btn sns">Go SNS</a>
+            </div>
+        </div>
+
+        <!-- 4번 팔도 - 오른쪽 시작, 왼쪽을 비스듬하게 -->
+        <div class="brand-card right-start paldo">
+            <div class="brand-content">
+                <div class="brand-info">
+                    <h2 class="brand-title">4. 팔도 (Paldo)</h2>
+                    <ul class="brand-details">
+                        <li>대표 제품: 비빔면, 틈새라면, 팔도왕뚜껑</li>
+                        <li>특징: 특히 비빔면이 여름철 국민 간식처럼 인기</li>
+                        <li>포인트: 국물 없는 비빔형 라면의 선두주자</li>
+                    </ul>
+                </div>
+            </div>
+            <div class="brand-buttons">
+                <a href="https://paldofood.co.kr/" class="brand-btn homepage">Go Homepage</a>
+                <a href="https://m.instagram.com/paldofood" class="brand-btn sns">Go SNS</a>
+            </div>
+        </div>
+    </div>
+
+    <div class="noodle-border">
+        <div class="wavy-line wavy-line2"></div>
+        <div class="wavy-line wavy-line1"></div>
+    </div>
+</body>
+</html>
